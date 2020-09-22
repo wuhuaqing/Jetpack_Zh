@@ -15,4 +15,7 @@ class StoryResp {
     var  images: List<String>?= null  // [ var"https://picb.zhimg.com/v2-4497d2a4e1141226c0e52abb40ea2e1c.jpg?source=8673f162"],
     var  type : Int = 0
     var  id : Int = 0 // 9728160
+    override fun toString(): String {
+        return "StoryResp(image_hue=$image_hue, title=$title, url=$url, hint=$hint, ga_prefix=$ga_prefix, images=$images, type=$type, id=$id)"
+    }
 }

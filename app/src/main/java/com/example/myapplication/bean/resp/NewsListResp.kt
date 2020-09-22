@@ -9,4 +9,7 @@ class NewsListResp {
     var date: String = ""
     var stories:List<StoryResp> ?=null
     var top_stories:List<StoryResp> ?=null
+    override fun toString(): String {
+        return "NewsListResp(date='$date', stories=$stories, top_stories=$top_stories)"
+    }
 }
