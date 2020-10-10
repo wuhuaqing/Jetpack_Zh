@@ -21,15 +21,17 @@ class NetClient {
     private val newsService =  ServiceCreator.create(NewsService::class.java)
 
      suspend fun getNewsData() = newsService.getNewsList().await()
-   /* suspend fun getNewsData():Call<NewsListResp> {
+
+
+    /* suspend fun getNewsDataInfo():Call<NewsListResp> {
      return  withContext(Dispatchers.IO) {
            newsService.getNewsList()//.await()
        }
-    }*/
+    } */
 
 
     private suspend fun <T> Call<T>.await(): T {
-        return suspendCoroutine { continuation ->
+      return suspendCoroutine { continuation ->
             enqueue(object : Callback<T> {
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resumeWithException(t)
@@ -42,6 +44,7 @@ class NetClient {
                 }
             })
         }
+
     }
 
 

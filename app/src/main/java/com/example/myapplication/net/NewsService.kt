@@ -12,4 +12,7 @@ import retrofit2.http.GET
 interface NewsService  {
     @GET(NetContans.NewsList)
     fun getNewsList(): Call<NewsListResp>
+
+    @GET(NetContans.NewsList)
+    suspend  fun getNewsListKt():   NewsListResp
 }
