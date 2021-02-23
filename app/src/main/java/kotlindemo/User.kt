@@ -53,7 +53,7 @@ class User(val name: String, val age: Int) {
 
     // 字符串相关
 
-    fun strTest() {
+    fun strTest() :String {
         val nameN = "whq"
         //引用参数
         println("hi $nameN")
@@ -72,7 +72,7 @@ class User(val name: String, val age: Int) {
         """.trimMargin()
         Log.e(TAG,textTrim)
 
-
+       return textTrim;
     }
 
 }
