@@ -7,6 +7,6 @@ package kotlindemo
  */
 class Sample {
     fun main(){
-
+        println("dfjdf ")
     }
 }

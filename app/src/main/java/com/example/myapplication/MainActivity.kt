@@ -1,10 +1,15 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import com.example.myapplication.CoroutineScope.CoroutineScopeActivity
 import com.example.myapplication.bean.resp.NewsListResp
+import com.example.myapplication.kotlintest.KotlinMainActivity
 import com.example.myapplication.net.NetClient
 import com.example.myapplication.net.NewsService
 import com.example.myapplication.net.ServiceCreator
@@ -17,71 +22,37 @@ import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
-    var tVContent: TextView? = null;
+    lateinit var btnScope: TextView;
+    lateinit var btnKotlinTest: TextView;
 
     lateinit var netClient: NetClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        tVContent = findViewById<TextView>(R.id.tvcontent)
-        netClient = NetClient()
-
-        //showData()
-        showDataInfo()
-
-
+        btnScope = findViewById<Button>(R.id.btnKotlinScope)
+        btnKotlinTest = findViewById<Button>(R.id.btnKotlinTest)
+        initView()
     }
 
-    fun showData() {
-        GlobalScope.launch(Dispatchers.Main) {
-            var newsData =   netClient.getNewsData()
-            Log.e("MainActivity", "resp:" + newsData.toString())
-            tVContent!!.text = newsData.toString()
+    fun initView() {
+        btnScope.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    CoroutineScopeActivity::class.java
+                )
+            )
         }
-
-
-    }
-    fun showDataInfo() {
-       val newsService =  ServiceCreator.create(NewsService::class.java)
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-             //   var newsListKt: NewsListResp= newsService.getNewsListKt()
-              val asyResp =   async { newsService.getNewsListKt() }
-                tVContent!!.text = asyResp.await().date
-            }catch (e:Exception){
-                tVContent!!.text = e.message
-            }
+        btnKotlinTest.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    KotlinMainActivity::class.java
+                )
+            )
         }
-
-        /* GlobalScope.launch(Dispatchers.Main) {
-
-           var newsData: NewsListResp = netClient.getNewsData()
-            Log.e("MainActivity", "resp:" + newsData)
-            newsData.enqueue(object : Callback<NewsListResp> {
-                override fun onFailure(call: Call<NewsListResp>, t: Throwable) {
-                    TODO("Not yet implemented")
-                    Log.e("onFailure", t.message)
-                }
-
-                override fun onResponse(call: Call<NewsListResp>, response: Response<NewsListResp>) {
-                    TODO("Not yet implemented")
-                     var newsListResp  = response.body()
-                    Log.e("onResponse: ", newsListResp.toString())
-
-                }
-
-
-            })
-
-        }*/
-
-
     }
-
-
-
 
 
 }

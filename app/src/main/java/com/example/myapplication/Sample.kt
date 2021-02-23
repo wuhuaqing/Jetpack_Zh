@@ -11,6 +11,7 @@ import android.widget.LinearLayout
  * description ： TODO:类的作用
  * author : 姓名
  * date : 2020/9/15 16:10
+ * 详细文章：https://kaixue.io/kotlin-basic-1/
  */
 
 class Demo {
@@ -46,6 +47,21 @@ abstract class Sample {
     }
 
     abstract fun testLaug(str: String)
+
+
+    var age: Int = 0
+        get() {
+            return field;
+        }
+        set(value) {
+            field = value + field;
+        }
+
+    //不可变变量没有set方法，有get方法
+     val height : Int  = 177
+     get() {
+        return field;
+     }
 }
 
 //类如可被继承，需加open字符
@@ -70,6 +86,9 @@ open class User constructor(name: String) : Sample() {
 }
 
 class People constructor() : User("hh") {
+
+    //数组类型
+    var arrayField: IntArray = intArrayOf(1,2)
 
 }
 
