@@ -18,7 +18,7 @@ import kotlin.coroutines.suspendCoroutine
  */
 class NetClient {
 
-    private val newsService =  ServiceCreator.create(NewsService::class.java)
+      val newsService =  ServiceCreator.create(NewsService::class.java)
 
      suspend fun getNewsData() = newsService.getNewsList().await()
 

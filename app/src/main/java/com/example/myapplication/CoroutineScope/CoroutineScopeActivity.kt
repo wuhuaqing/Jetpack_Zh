@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import com.example.myapplication.R
+import com.example.myapplication.bean.resp.NewsListResp
 import com.example.myapplication.net.NetClient
 import com.example.myapplication.net.NewsService
 import com.example.myapplication.net.ServiceCreator
@@ -12,8 +13,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
 
+/**
+ * kotlin 协程
+ */
 class CoroutineScopeActivity : AppCompatActivity() {
 
     private lateinit var tvContent: TextView
@@ -34,44 +41,33 @@ class CoroutineScopeActivity : AppCompatActivity() {
             Log.e("MainActivity", "resp:" + newsData.toString())
             tvContent!!.text = newsData.toString()
         }
-
-
     }
 
     fun showDataInfo() {
         val newsService = ServiceCreator.create(NewsService::class.java)
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                //   var newsListKt: NewsListResp= newsService.getNewsListKt()
-                val asyResp = async { newsService.getNewsListKt() }
-                tvContent!!.text = asyResp.await().date
-            } catch (e: Exception) {
-                tvContent!!.text = e.message
-            }
-        }
-
         /* GlobalScope.launch(Dispatchers.Main) {
+             try {
+                 //   var newsListKt: NewsListResp= newsService.getNewsListKt()
+                 val asyResp = async { newsService.getNewsListKt() }
+                 tvContent!!.text = asyResp.await().date
+             } catch (e: Exception) {
+                 tvContent!!.text = e.message
+             }
+         }*/
 
-           var newsData: NewsListResp = netClient.getNewsData()
+        /*GlobalScope.launch(Dispatchers.Main) {
+          var newsData: Call<NewsListResp> =  newsService.getNewsList()
             Log.e("MainActivity", "resp:" + newsData)
-            newsData.enqueue(object : Callback<NewsListResp> {
-                override fun onFailure(call: Call<NewsListResp>, t: Throwable) {
-                    TODO("Not yet implemented")
-                    Log.e("onFailure", t.message)
-                }
-
-                override fun onResponse(call: Call<NewsListResp>, response: Response<NewsListResp>) {
-                    TODO("Not yet implemented")
-                     var newsListResp  = response.body()
-                    Log.e("onResponse: ", newsListResp.toString())
-
-                }
-
-
-            })
-
-        }*/
-
+           newsData.enqueue(object : Callback<NewsListResp> {
+               override fun onFailure(call: Call<NewsListResp>, t: Throwable) {
+                   Log.e("onFailure", t.message)
+               }
+               override fun onResponse(call: Call<NewsListResp>, response: Response<NewsListResp>) {
+                    var newsListResp  = response.body()
+                   Log.e("onResponse: ", newsListResp.toString())
+               }
+           })
+       }*/
 
     }
 
